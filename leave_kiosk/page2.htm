@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <title>page2</title>
+        <link rel="stylesheet" href="3.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    </head>
+
+    <body>
+        <div class="row no-gutters">
+            <div class="col-6 no-gutters">
+                <div class="col-left">
+
+                </div>
+            </div>
+
+            <div class="col-6 no-gutters">
+                <div class="col-right">
+                    <form method="POST" name="form1">
+                            <p class="x" id="one" required="true">Select type of Leave:</p>
+                            <select class="leave-type" id="one">
+                                <option value="AL">AL</option>
+                                <option value="CL">CL</option>
+                            </select>
+
+                            <p id="two">Select starting date of leave:</p>
+                            <input name="field1" type="text" id="twoo" class="begin" name="datefrom" required>
+                            <p id="req">*Required</p>
+
+                            <p id="three">Select end date of leave:</p>
+                            <input name="field2" type="text" id="thre" class="ending" name="dateto">
+                            <p id="req">*Required</p>
+
+                            <p class="four" id="fourr">Select a prefix date (if applicable) :</p>
+                            <input type="text" id="pre" class="prefix-begin">
+
+                            <p class="five" id="fiver">Select a suffix date (if applicable) :</p>
+                            <input type="text" id="suf" class="suffix-begin">
+
+                            <br>
+                            <p class="six" id="sixer">Days :</p>
+                            <p id="set"></p>
+
+                            <a href="#" class="boton" onclick="days()">Submit</a>
+                    </form>
+                </div>
+            </div>
+        </div> 
+
+
+        <script src="http://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+        <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+        
+        <script>
+
+            $(window).ready(function(){
+                $(".boton").wrapInner('<div class=botontext></div>');
+                    
+                    $(".botontext").clone().appendTo( $(".boton") );
+                    
+                    $(".boton").append('<span class="twist"></span><span class="twist"></span><span class="twist"></span><span class="twist"></span>');
+                    
+                    $(".twist").css("width", "25%").css("width", "+=3px");
+                });
+
+            $(document).ready(function() {
+
+                $("#twoo").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    minDate: new Date()
+                });
+
+                $("#thre").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    minDate: new Date()
+                });
+
+                $("#pre").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    minDate: new Date()
+                });
+
+                $("#suf").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    minDate: new Date()
+                });
+            });
+
+            function days(){
+                var days = [
+                    [31],
+                    [28],
+                    [31],
+                    [30],
+                    [31],
+                    [30],
+                    [31],
+                    [31],
+                    [30],
+                    [31],
+                    [30],
+                    [31]
+                ];
+                var date1 = document.getElementById("twoo").value;
+                var date2 = document.getElementById("thre").value;
+                var dt1 = date1.substring(0,2);
+                var dt2 = date2.substring(0,2);
+                var month1 = date1.substring(3,5);
+                var month2 = date2.substring(3,5);
+
+                var dt1_num = parseInt(dt1,10);
+                var dt2_num = parseInt(dt2,10);
+                var month1_num = parseInt(month1,10);
+                var month2_num = parseInt(month2,10);
+
+                if(month1_num == month2_num){
+                    document.getElementById("set").innerHTML = (dt2_num-dt1_num);
+                    document.getElementById("set").style.cssText = 'border: 2px solid black;'
+                }
+                
+                else{
+                    var dayDiff = days[month1_num - 1][0] - dt1_num;
+                    document.getElementById("set").innerHTML = (dayDiff + dt2_num);
+                    document.getElementById("set").style.cssText = 'border: 2px solid black;'
+                }
+            }
+
+        </script>
+    </body>
+
+</html>
